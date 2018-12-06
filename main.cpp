@@ -4,11 +4,11 @@
 #include <string>
 #include "Functions.h"
 #include "Shape.h"
-#include "Point.h"
+#include "Point.h" //Vital class. Almost everything runs through this
 #include "Triangle.h"
 #include <iomanip>
 #include "Line.h"
-#include "OnePoint.h"
+#include "OnePoint.h" //This is the shape-point
 #include "Polygon.h"
 
 int main(int argc, const char *argv[])
@@ -105,9 +105,6 @@ int main(int argc, const char *argv[])
         std::cout << "Circumference is " << myOnePoint.getCircumference() << std::endl;
         std::cout << "Centerposition is (" << myOnePoint.getPosition().getX() << ", " << myOnePoint.getPosition().getY() << ")" << std::endl;
     }
-    std::cout << "The distance is " << myTriangle.distance(myLine) << std::endl;
 
-    delete[] arrayOfCoords; //Delete buffer to prevent memory leakage
-    arrayOfCoords = nullptr;
     return 0;
 }
