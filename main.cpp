@@ -44,6 +44,7 @@ int main(int argc, const char *argv[])
         std::cout << "File is missing a coordinate" << std::endl;
         return (EXIT_FAILURE);
     }
+    count = count / 2;
     Point *arrayOfCoords = new Point[count]; //Allocate a dynamic memory array
     f.clear();
     f.seekg(0); //Rewind the file
@@ -54,7 +55,7 @@ int main(int argc, const char *argv[])
     while (f >> x >> y)
     {
         Point p(x, y);
-        arrayOfCoords[j] = p; // Insert integers into array
+        arrayOfCoords[j] = p;
         j++;
     }
     f.close(); //Close file
@@ -64,7 +65,7 @@ int main(int argc, const char *argv[])
     Triangle myTriangle(arrayOfCoords[0], arrayOfCoords[1], arrayOfCoords[2]);
     Polygon myPolygon(arrayOfCoords, count);
 
-    if (count > 6)
+    if (count > 3)
     {
         std::cout << std::fixed;
         std::cout << std::setprecision(3);
@@ -72,8 +73,12 @@ int main(int argc, const char *argv[])
         std::cout << "Area is " << myPolygon.getArea() << std::endl;
         std::cout << "Circumference is " << myPolygon.getCircumference() << std::endl;
         std::cout << "Centerposition is (" << myPolygon.getPosition().getX() << ", " << myPolygon.getPosition().getY() << ")" << std::endl;
+        if (!myPolygon.isConvex())
+            std::cout << "The polygon is concave" << std::endl;
+        else
+            std::cout << "The polygon is convex" << std::endl;
     }
-    if (count == 6)
+    if (count == 3)
     {
         std::cout << std::fixed;
         std::cout << std::setprecision(3);
@@ -82,7 +87,7 @@ int main(int argc, const char *argv[])
         std::cout << "Circumference is " << myTriangle.getCircumference() << std::endl;
         std::cout << "Centerposition is (" << myTriangle.getPosition().getX() << ", " << myTriangle.getPosition().getY() << ")" << std::endl;
     }
-    if (count == 4)
+    if (count == 2)
     {
         std::cout << std::fixed;
         std::cout << std::setprecision(3);
@@ -91,7 +96,7 @@ int main(int argc, const char *argv[])
         std::cout << "Circumference is " << myLine.getCircumference() << std::endl;
         std::cout << "Centerposition is (" << myLine.getPosition().getX() << ", " << myLine.getPosition().getY() << ")" << std::endl;
     }
-    if (count == 2)
+    if (count == 1)
     {
         std::cout << std::fixed;
         std::cout << std::setprecision(3);
@@ -103,5 +108,6 @@ int main(int argc, const char *argv[])
     std::cout << "The distance is " << myTriangle.distance(myLine) << std::endl;
 
     delete[] arrayOfCoords; //Delete buffer to prevent memory leakage
+    arrayOfCoords = nullptr;
     return 0;
 }
